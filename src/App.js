@@ -4,7 +4,7 @@ import InputTab from "./common/inputTab";
 
 function App() {
   return (
-    <div className="bg-dark">
+    <div className="d-flex flex-column">
       <InputTab />
       <Buttons />
     </div>

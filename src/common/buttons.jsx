@@ -5,25 +5,32 @@ const Buttons = ({ onClick }) => {
     [
       "AC",
       <span>
-        <sup>+</sup>/<sub>-</sub>
+        <sup>+</sup>/-
       </span>,
       "%",
       "÷",
     ],
-    [7, 8, 9, "x"],
+    [7, 8, 9, "×"],
     [4, 5, 6, "-"],
     [1, 2, 3, "+"],
     [0, ".", "="],
   ];
 
+  // const getBgClasses = () => {
+  //   return true;
+  // };
+
   return (
-    <div className="container text-center">
-      {buttons.map((button) => (
-        <div className="row">
-          {button.map((element) => (
-            <div className="col bg-numbers bg-gradient rounded-circle text-white">
+    <div className="fixed-bottom button-container">
+      {buttons.map((button, index) => (
+        <div className="grid5x4" key={index}>
+          {button.map((element, index) => (
+            <span
+              className="button bg-numbers m-1 rounded-circle text-center text-white"
+              key={index}
+            >
               {element}
-            </div>
+            </span>
           ))}
         </div>
       ))}

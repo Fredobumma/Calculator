@@ -1,8 +1,14 @@
+@import url("https://fonts.cdnfonts.com/css/sf-pro-display");
+
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: black;
+  font-family: "SF Pro Display", sans-serif;
+  font-size: 32px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  margin: 0 auto;
+  max-width: 500px;
+  padding-bottom: 20px;
 }
 
 code {
@@ -11,5 +17,36 @@ code {
 }
 
 .bg-numbers {
-  background-color: rgb(98, 98, 98);
+  background-color: #333;
+}
+
+.bg-gray {
+  background-color: #a5a5a5;
+}
+
+.bg-yellow {
+  background-color: #fe9e0b;
+}
+
+.button {
+  align-items: center;
+  display: flex;
+  height: 20vw;
+  justify-content: center;
+  max-height: 70px;
+  max-width: 70px;
+  width: 20vw;
+}
+
+.button-container {
+  margin: 0 auto 70px auto;
+  max-width: 500px;
+}
+
+.grid5x4 {
+  display: grid;
+  /* grid-auto-flow: column dense; */
+  grid-template-columns: repeat(4, 1fr);
+  justify-items: center;
+  margin: 0 10px;
 }
