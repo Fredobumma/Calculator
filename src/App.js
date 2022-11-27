@@ -1,12 +1,12 @@
 import React from "react";
-import Buttons from "./common/buttons";
-import InputTab from "./common/inputTab";
+import Keypad from "./common/keypad";
+// import InputTab from "./common/inputTab";
 
 function App() {
   return (
     <div className="d-flex flex-column">
-      <InputTab />
-      <Buttons />
+      {/* <InputTab /> */}
+      <Keypad />
     </div>
   );
 }
