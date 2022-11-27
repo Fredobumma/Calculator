@@ -1,11 +1,11 @@
 import React from "react";
+import InputTab from "./common/inputTab";
 import Keypad from "./common/keypad";
-// import InputTab from "./common/inputTab";
 
 function App() {
   return (
-    <div className="d-flex flex-column">
-      {/* <InputTab /> */}
+    <div className="fixed-bottom calculator-container">
+      <InputTab />
       <Keypad />
     </div>
   );

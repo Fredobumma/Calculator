@@ -36,7 +36,7 @@ const Keypad = ({ onClick }) => {
   };
 
   return (
-    <div className="fixed-bottom button-container">
+    <div>
       {buttons.map((button, index) => (
         <div
           className={`grid5x4 ${
