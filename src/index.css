@@ -31,6 +31,10 @@ code {
   font-size: min(40vw, 90px);
 }
 
+.input-query-max {
+  font-size: 40px;
+}
+
 .grid5x4 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);

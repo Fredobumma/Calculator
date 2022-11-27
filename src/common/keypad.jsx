@@ -52,6 +52,7 @@ const Keypad = ({ onClick }) => {
                 value
               )}`}
               key={index}
+              onClick={() => onClick(value)}
             >
               {value}
             </button>
