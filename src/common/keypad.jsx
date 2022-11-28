@@ -1,6 +1,6 @@
 import React from "react";
 
-const Keypad = ({ onClick }) => {
+const Keypad = ({ operator, onClick }) => {
   const buttons = [
     [
       "AC",
@@ -22,10 +22,16 @@ const Keypad = ({ onClick }) => {
       {
         name:
           buttons[0] === button && !(button[lastElement(button)] === value)
-            ? "bg-gray black"
-            : "text-white",
+            ? "bg-characters-g black"
+            : "btn-textColor",
       },
-      { name: button[lastElement(button)] === value && "bg-yellow" },
+      {
+        name:
+          button[lastElement(button)] === value &&
+          `bg-operators-y ${
+            operator && operator.value === value ? "bg-operators-w" : ""
+          }`,
+      },
       { name: buttons[lastElement(buttons)] === button && "rounded-pill" },
     ];
 

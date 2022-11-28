@@ -10,7 +10,7 @@ const InputTab = ({ inputQuery, solvedInput }) => {
         disabled
       />
       <input
-        type="number"
+        type="text"
         className={`bcb border-0 input-query ${
           inputQuery.length > 5 && "input-query-max"
         } im-r text-end text-white w-80`}

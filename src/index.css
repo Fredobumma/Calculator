@@ -59,16 +59,25 @@ code {
   outline: 0;
 }
 
+.btn-textColor {
+  color: white;
+}
+
 .bg-numbers {
   background-color: #333;
 }
 
-.bg-gray {
+.bg-characters-g {
   background-color: #a5a5a5;
 }
 
-.bg-yellow {
+.bg-operators-y {
   background-color: #fe9e0b;
+}
+
+.bg-operators-w {
+  background-color: white;
+  color: #fe9e0b;
 }
 
 .button {
