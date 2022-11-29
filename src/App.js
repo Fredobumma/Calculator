@@ -19,6 +19,15 @@ function App() {
 
   const handleClick = (value) => {
     const lastValue = expression.length - 1;
+    if (value === "AC") {
+      setOperator({ value });
+      setExpression("");
+      return setInputQuery(0);
+    }
+    if (value === "C") {
+      setOperator({ value });
+      return setInputQuery(0);
+    }
     if (value === "=") {
       setOperator({ clicked: true, value });
       const finalValue = `${expression}${inputQuery}`;
@@ -50,7 +59,11 @@ function App() {
   return (
     <div className="fixed-bottom calculator-container">
       <InputTab inputQuery={inputQuery} expression={expression} />
-      <Keypad operator={operator} onClick={handleClick} />
+      <Keypad
+        inputQuery={inputQuery}
+        operator={operator}
+        onClick={handleClick}
+      />
     </div>
   );
 }

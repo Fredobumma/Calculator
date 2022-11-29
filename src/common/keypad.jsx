@@ -1,9 +1,15 @@
 import React from "react";
 
-const Keypad = ({ operator, onClick }) => {
+const Keypad = ({ inputQuery, operator, onClick }) => {
   const buttons = [
     [
-      "AC",
+      `${
+        operator.value === "AC" &&
+        inputQuery !== 0 &&
+        inputQuery.toString().length >= 1
+          ? "C"
+          : "AC"
+      }`,
       <span>
         <sup>+</sup>/-
       </span>,
