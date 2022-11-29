@@ -23,12 +23,19 @@ code {
     monospace;
 }
 
+.input-wrapper {
+  justify-content: end;
+}
+
 .input-solved {
   font-size: 20px;
+  text-align: end;
+  width: 50%;
 }
 
 .input-query {
   font-size: min(40vw, 90px);
+  height: 135px;
 }
 
 .input-query-max {
@@ -100,8 +107,8 @@ code {
   padding-left: 15%;
 }
 
-.imb-7 {
-  margin-bottom: var(--size);
+.im-b {
+  margin-bottom: 65px;
 }
 
 .im-r {
@@ -111,5 +118,25 @@ code {
 @media screen and (min-width: 500px) {
   .grid-zero-row > .button:first-of-type {
     padding-left: min(6.5vw, 27px);
+  }
+}
+
+@media screen and (max-height: 650px) {
+  .calculator-container {
+    margin-bottom: 40px;
+  }
+
+  .input-solved {
+    bottom: 20%;
+    left: 10%;
+    margin-right: 0;
+    position: absolute;
+    text-align: start;
+    width: 30%;
+    z-index: 5;
+  }
+
+  .input-query {
+    margin-right: 40px;
   }
 }
