@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { evaluate } from "mathjs";
 import InputTab from "./common/inputTab";
 import Keypad from "./common/keypad";
 import { characters } from "./utilities/characters";
@@ -33,7 +34,7 @@ function App() {
       const finalValue = `${expression}${inputQuery}`;
       setExpression(finalValue);
       const output = replaceCharacters(finalValue);
-      return setInputQuery(eval(output));
+      return setInputQuery(evaluate(output));
     }
     if (
       !characters.includes(value) &&

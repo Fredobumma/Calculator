@@ -3,13 +3,7 @@ import React from "react";
 const Keypad = ({ inputQuery, operator, onClick }) => {
   const buttons = [
     [
-      `${
-        operator.value === "AC" &&
-        inputQuery !== 0 &&
-        inputQuery.toString().length >= 1
-          ? "C"
-          : "AC"
-      }`,
+      `${inputQuery !== 0 && inputQuery.toString().length >= 1 ? "C" : "AC"}`,
       <span>
         <sup>+</sup>/-
       </span>,
