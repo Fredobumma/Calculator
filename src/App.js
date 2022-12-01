@@ -29,9 +29,40 @@ function App() {
       setOperator({ value });
       return setInputQuery(0);
     }
+    if (value.type) {
+      return setInputQuery(inputQuery ? -inputQuery : inputQuery);
+    }
+    if (value === "%") {
+      setOperator({ clicked: true, value });
+      setExpression("");
+      const input = inputQuery / 100;
+      const inputValue =
+        input.toString().length > 12 ? input.toString().slice(0, 11) : input;
+      return setInputQuery(Number(inputValue));
+    }
+    if (value === "." && inputQuery.toString().includes(".")) return;
+    if (
+      !characters.includes(value) &&
+      operator.clicked &&
+      operator.value === "."
+    ) {
+      setOperator({ clicked: false });
+      return setInputQuery(`${inputQuery}${value}`);
+    }
+    if (value === ".") {
+      setOperator({ clicked: true, value });
+      return setInputQuery(`${inputQuery}.`);
+    }
+    if (value === "=" && operator.value === ".") {
+      setOperator({ clicked: false, value });
+      return setInputQuery(`${inputQuery}0`);
+    }
+    // if (value === "=" && operator.value === "=") return;
     if (value === "=") {
       setOperator({ clicked: true, value });
-      const finalValue = `${expression}${inputQuery}`;
+      const finalValue = characters.includes(expression[lastValue])
+        ? `${expression}${inputQuery}`
+        : `${inputQuery}`;
       setExpression(finalValue);
       const output = replaceCharacters(finalValue);
       return setInputQuery(evaluate(output));
@@ -53,7 +84,11 @@ function App() {
       setOperator({ clicked: true, value });
       return setExpression(`${inputQuery}${value}`);
     }
-    const input = inputQuery === 0 ? `${value}` : `${inputQuery}${value}`;
+    const input =
+      inputQuery.toString() === "0" || operator.clicked
+        ? `${value}`
+        : `${inputQuery}${value}`;
+    setOperator({ clicked: false, value: "" });
     setInputQuery(input);
   };
 
