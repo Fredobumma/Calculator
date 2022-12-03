@@ -34,7 +34,7 @@ code {
 }
 
 .input-query {
-  font-size: min(40vw, 90px);
+  font-size: min(25vw, 90px);
   height: 135px;
 }
 
@@ -121,7 +121,7 @@ code {
   }
 }
 
-@media screen and (max-height: 650px) {
+@media screen and (max-height: 650px) and (min-width: 280px) {
   .calculator-container {
     margin-bottom: 40px;
   }

@@ -18,78 +18,135 @@ function App() {
     return expression;
   };
 
-  const handleClick = (value) => {
-    const lastValue = expression.length - 1;
-    if (value === "AC") {
-      setOperator({ value });
-      setExpression("");
-      return setInputQuery(0);
-    }
-    if (value === "C") {
-      setOperator({ value });
-      return setInputQuery(0);
-    }
-    if (value.type) {
-      return setInputQuery(inputQuery ? -inputQuery : inputQuery);
-    }
+  const clearQuery = (value) => {
+    if (value === "AC")
+      return { inputQuery: 0, expression: "", operator: { value } };
+
+    if (value === "C") return { inputQuery: 0, operator: { value } };
+  };
+
+  const addMinus = (value) => {
+    if (value.type)
+      return inputQuery ? { inputQuery: -inputQuery } : { inputQuery };
+  };
+
+  const percentage = (value) => {
     if (value === "%") {
-      setOperator({ clicked: true, value });
-      setExpression("");
       const input = inputQuery / 100;
       const inputValue =
         input.toString().length > 12 ? input.toString().slice(0, 11) : input;
-      return setInputQuery(Number(inputValue));
+      return {
+        inputQuery: Number(inputValue),
+        expression: "",
+        operator: { clicked: true, value },
+      };
     }
-    if (value === "." && inputQuery.toString().includes(".")) return;
+  };
+
+  const dot = (value) => {
+    if (value === "." && inputQuery.toString().includes("."))
+      return { inputQuery, operator: { value } };
     if (
       !characters.includes(value) &&
       operator.clicked &&
       operator.value === "."
-    ) {
-      setOperator({ clicked: false });
-      return setInputQuery(`${inputQuery}${value}`);
-    }
-    if (value === ".") {
-      setOperator({ clicked: true, value });
-      return setInputQuery(`${inputQuery}.`);
-    }
-    if (value === "=" && operator.value === ".") {
-      setOperator({ clicked: false, value });
-      return setInputQuery(`${inputQuery}0`);
-    }
-    // if (value === "=" && operator.value === "=") return;
+    )
+      return {
+        inputQuery: `${inputQuery}${value}`,
+        operator: { clicked: false },
+      };
+
+    if (value === ".")
+      return {
+        inputQuery: `${inputQuery}${value}`,
+        operator: { clicked: true, value },
+      };
+  };
+
+  const equalSign = (value, lastValue) => {
+    if (value === "=" && operator.value === ".")
+      return {
+        inputQuery: `${inputQuery}0`,
+        operator: { clicked: false, value },
+      };
     if (value === "=") {
-      setOperator({ clicked: true, value });
       const finalValue = characters.includes(expression[lastValue])
         ? `${expression}${inputQuery}`
         : `${inputQuery}`;
-      setExpression(finalValue);
-      const output = replaceCharacters(finalValue);
-      return setInputQuery(evaluate(output));
+      const evaluation = evaluate(replaceCharacters(finalValue));
+      const inputValue =
+        evaluation.toString().length > 12
+          ? evaluation.toString().slice(0, 11)
+          : evaluation;
+      return {
+        inputQuery: Number(inputValue),
+        expression: finalValue,
+        operator: { clicked: true, value },
+      };
     }
+  };
+
+  const otherEvents = (value, lastValue) => {
     if (
       !characters.includes(value) &&
       characters.includes(expression[lastValue])
     ) {
-      setOperator({ clicked: false });
-      const input = operator.clicked ? `${value}` : `${inputQuery}${value}`;
-      return setInputQuery(input);
+      const input =
+        operator.clicked || typeof value === "number"
+          ? `${value}`
+          : `${inputQuery}${value}`;
+      return { inputQuery: input, operator: { clicked: false } };
     }
-    if (operator.clicked && !characters.includes(value)) {
-      setOperator({ clicked: false });
-      const input = operator.clicked ? `${value}` : `${inputQuery}${value}`;
-      return setInputQuery(input);
+    if (
+      characters.includes(value) &&
+      characters.includes(expression[lastValue])
+    ) {
+      const finalValue = `${expression}${inputQuery}`;
+      const evaluation = evaluate(replaceCharacters(finalValue));
+      const inputValue =
+        evaluation.toString().length > 12
+          ? evaluation.toString().slice(0, 11)
+          : evaluation;
+      return {
+        inputQuery: 0,
+        expression: `${Number(inputValue)}${value}`,
+        operator: { clicked: true, value },
+      };
     }
-    if (typeof value !== "number") {
-      setOperator({ clicked: true, value });
-      return setExpression(`${inputQuery}${value}`);
-    }
+    if (typeof value !== "number")
+      return {
+        inputQuery: 0,
+        expression: `${inputQuery}${value}`,
+        operator: { clicked: true, value },
+      };
+
+    console.log("this");
     const input =
       inputQuery.toString() === "0" || operator.clicked
         ? `${value}`
         : `${inputQuery}${value}`;
-    setOperator({ clicked: false, value: "" });
-    setInputQuery(input);
+    return { inputQuery: input, operator: { clicked: false, value: "" } };
+  };
+
+  const handleClick = (value) => {
+    const lastValue = expression.length - 1;
+    const events = [
+      clearQuery,
+      addMinus,
+      percentage,
+      dot,
+      equalSign,
+      otherEvents,
+    ];
+    const output = events
+      .map((element) => element(value, lastValue))
+      .filter((result) => result)[0];
+
+    setOperator(output.operator ? output.operator : operator);
+    setExpression(
+      output.expression !== undefined ? output.expression : expression
+    );
+    setInputQuery(output.inputQuery);
   };
 
   return (
