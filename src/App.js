@@ -90,10 +90,7 @@ function App() {
       !characters.includes(value) &&
       characters.includes(expression[lastValue])
     ) {
-      const input =
-        operator.clicked || typeof value === "number"
-          ? `${value}`
-          : `${inputQuery}${value}`;
+      const input = operator.clicked ? `${value}` : `${inputQuery}${value}`;
       return { inputQuery: input, operator: { clicked: false } };
     }
     if (
