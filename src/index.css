@@ -108,7 +108,7 @@ code {
 }
 
 .im-b {
-  margin-bottom: 65px;
+  margin-bottom: min(5vh, 65px);
 }
 
 .im-r {
@@ -127,7 +127,7 @@ code {
   }
 
   .input-solved {
-    bottom: 25%;
+    bottom: 60%;
     left: 10%;
     margin-right: 0;
     position: absolute;
@@ -137,6 +137,6 @@ code {
   }
 
   .input-query {
-    margin-right: 40px;
+    margin-right: min(15vw, 50px);
   }
 }
