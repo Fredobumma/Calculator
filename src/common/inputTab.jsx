@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { getString } from "./../utilities/getString";
 
 const InputTab = ({ inputQuery, expression }) => {
@@ -20,6 +21,11 @@ const InputTab = ({ inputQuery, expression }) => {
       />
     </div>
   );
+};
+
+InputTab.propTypes = {
+  inputQuery: PropTypes.any,
+  expression: PropTypes.any,
 };
 
 export default InputTab;

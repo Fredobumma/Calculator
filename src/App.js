@@ -37,7 +37,6 @@ function App() {
         input.toString().length > 12 ? input.toString().slice(0, 11) : input;
       return {
         inputQuery: Number(inputValue),
-        expression: "",
         operator: { clicked: true, value },
       };
     }
@@ -120,7 +119,6 @@ function App() {
         operator: { clicked: true, value },
       };
 
-    console.log("this");
     const input =
       inputQuery.toString() === "0" || operator.clicked
         ? `${value}`

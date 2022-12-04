@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const Keypad = ({ inputQuery, operator, onClick }) => {
   const buttons = [
@@ -67,6 +68,12 @@ const Keypad = ({ inputQuery, operator, onClick }) => {
       ))}
     </div>
   );
+};
+
+Keypad.propTypes = {
+  inputQuery: PropTypes.any,
+  operator: PropTypes.object,
+  onClick: PropTypes.func,
 };
 
 export default Keypad;
