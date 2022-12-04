@@ -107,14 +107,14 @@ function App() {
           ? evaluation.toString().slice(0, 11)
           : evaluation;
       return {
-        inputQuery: 0,
+        inputQuery: Number(inputValue),
         expression: `${Number(inputValue)}${value}`,
         operator: { clicked: true, value },
       };
     }
     if (typeof value !== "number")
       return {
-        inputQuery: 0,
+        inputQuery,
         expression: `${inputQuery}${value}`,
         operator: { clicked: true, value },
       };
