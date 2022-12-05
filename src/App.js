@@ -64,7 +64,6 @@ function App() {
 
   const equalSign = (value, lastValue) => {
     if (value === "=" && operator.value === ".") {
-      console.log("what", `${inputQuery}0`);
       return {
         inputQuery: Number(`${inputQuery}0`),
         operator: { clicked: false, value },
@@ -116,15 +115,12 @@ function App() {
       };
     }
     if (typeof value !== "number") {
-      console.log("bug1");
       return {
         inputQuery,
         expression: `${inputQuery}${value}`,
         operator: { clicked: true, value },
       };
     }
-
-    console.log("bug");
 
     const input =
       inputQuery.toString() === "0" || operator.clicked
@@ -147,7 +143,6 @@ function App() {
       .map((element) => element(value, lastValue))
       .filter((result) => result)[0];
 
-    console.log(operator, inputQuery);
     setOperator(output.operator ? output.operator : operator);
     setExpression(
       output.expression !== undefined ? output.expression : expression
