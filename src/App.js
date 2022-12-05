@@ -37,7 +37,6 @@ function App() {
         input.toString().length > 12 ? input.toString().slice(0, 11) : input;
       return {
         inputQuery: Number(inputValue),
-        operator: { clicked: true, value },
       };
     }
   };
@@ -45,16 +44,17 @@ function App() {
   const dot = (value) => {
     if (value === "." && inputQuery.toString().includes("."))
       return { inputQuery, operator: { value } };
-    if (
-      !characters.includes(value) &&
-      operator.clicked &&
-      operator.value === "."
-    )
+    if (operator.value === "=" && value === ".")
       return {
-        inputQuery: `${inputQuery}${value}`,
-        operator: { clicked: false },
+        inputQuery: `${value}`,
+        operator: { clicked: true, value },
       };
-
+    if (
+      value === "." &&
+      operator.clicked &&
+      characters.includes(operator.value)
+    )
+      return { inputQuery: `${value}`, operator: { clicked: true, value } };
     if (value === ".")
       return {
         inputQuery: `${inputQuery}${value}`,
@@ -63,11 +63,13 @@ function App() {
   };
 
   const equalSign = (value, lastValue) => {
-    if (value === "=" && operator.value === ".")
+    if (value === "=" && operator.value === ".") {
+      console.log("what", `${inputQuery}0`);
       return {
-        inputQuery: `${inputQuery}0`,
+        inputQuery: Number(`${inputQuery}0`),
         operator: { clicked: false, value },
       };
+    }
     if (value === "=") {
       const finalValue = characters.includes(expression[lastValue])
         ? `${expression}${inputQuery}`
@@ -90,12 +92,16 @@ function App() {
       !characters.includes(value) &&
       characters.includes(expression[lastValue])
     ) {
-      const input = operator.clicked ? `${value}` : `${inputQuery}${value}`;
+      const input =
+        operator.clicked || inputQuery.toString() === "0"
+          ? `${value}`
+          : `${inputQuery}${value}`;
       return { inputQuery: input, operator: { clicked: false } };
     }
     if (
       characters.includes(value) &&
-      characters.includes(expression[lastValue])
+      characters.includes(expression[lastValue]) &&
+      !operator.clicked
     ) {
       const finalValue = `${expression}${inputQuery}`;
       const evaluation = evaluate(replaceCharacters(finalValue));
@@ -109,12 +115,16 @@ function App() {
         operator: { clicked: true, value },
       };
     }
-    if (typeof value !== "number")
+    if (typeof value !== "number") {
+      console.log("bug1");
       return {
         inputQuery,
         expression: `${inputQuery}${value}`,
         operator: { clicked: true, value },
       };
+    }
+
+    console.log("bug");
 
     const input =
       inputQuery.toString() === "0" || operator.clicked
@@ -137,6 +147,7 @@ function App() {
       .map((element) => element(value, lastValue))
       .filter((result) => result)[0];
 
+    console.log(operator, inputQuery);
     setOperator(output.operator ? output.operator : operator);
     setExpression(
       output.expression !== undefined ? output.expression : expression
