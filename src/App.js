@@ -121,7 +121,13 @@ function App() {
         operator: { clicked: true, value },
       };
     }
+    if (inputQuery.toString().includes(".") && typeof value === "number")
+      return {
+        inputQuery: `${inputQuery}${value}`,
+        operator: { clicked: false, value: "" },
+      };
 
+    console.log("herre", typeof value);
     const input =
       inputQuery.toString() === "0" || operator.clicked
         ? `${value}`
